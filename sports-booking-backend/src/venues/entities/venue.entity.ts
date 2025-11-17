@@ -58,21 +58,21 @@ export class Venue {
     description: 'Venue latitude',
     example: 40.7128,
   })
-  @Column({ type: 'decimal', precision: 10, scale: 8 })
+  @Column({ type: 'real' })
   latitude: number;
 
   @ApiProperty({
     description: 'Venue longitude',
     example: -74.0060,
   })
-  @Column({ type: 'decimal', precision: 11, scale: 8 })
+  @Column({ type: 'real' })
   longitude: number;
 
   @ApiProperty({
     description: 'Base price per hour',
     example: 50.00,
   })
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({ type: 'real' })
   pricePerHour: number;
 
   @ApiProperty({
