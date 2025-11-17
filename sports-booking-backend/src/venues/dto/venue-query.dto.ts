@@ -5,7 +5,6 @@ import {
   IsEnum,
   Min,
   Max,
-  Transform,
 } from 'class-validator';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
