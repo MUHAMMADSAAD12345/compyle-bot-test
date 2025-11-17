@@ -105,6 +105,44 @@ export class Venue {
   closingTime: string;
 
   @ApiProperty({
+    description: 'Time slot duration in minutes',
+    example: 60,
+  })
+  @Column({ default: 60 })
+  slotDurationMinutes: number;
+
+  @ApiProperty({
+    description: 'Advanced scheduling configuration as JSON',
+    example: {
+      "differentHoursPerDay": {
+        "monday": { "opening": "06:00", "closing": "22:00" },
+        "tuesday": { "opening": "06:00", "closing": "22:00" },
+        "weekend": { "opening": "07:00", "closing": "20:00" }
+      },
+      "breakTimes": [
+        { "start": "12:00", "end": "13:00", "reason": "lunch_break" }
+      ],
+      "maintenanceDays": ["2023-12-25", "2024-01-01"]
+    },
+  })
+  @Column({ type: 'json', default: {} })
+  schedulingConfig: Record<string, any>;
+
+  @ApiProperty({
+    description: 'Minimum booking notice in hours',
+    example: 2,
+  })
+  @Column({ default: 2 })
+  minBookingNoticeHours: number;
+
+  @ApiProperty({
+    description: 'Maximum booking duration in hours',
+    example: 4,
+  })
+  @Column({ default: 4 })
+  maxBookingDurationHours: number;
+
+  @ApiProperty({
     description: 'Whether venue is active for booking',
     example: true,
   })
