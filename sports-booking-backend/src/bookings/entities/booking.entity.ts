@@ -70,7 +70,7 @@ export class Booking {
     description: 'Total amount for booking',
     example: 50.00,
   })
-  @Column({ name: 'total_amount', type: 'decimal', precision: 10, scale: 2 })
+  @Column({ name: 'total_amount', type: 'real' })
   totalAmount: number;
 
   @ApiProperty({

@@ -79,8 +79,7 @@ __decorate([
         example: UserRole.PLAYER,
     }),
     (0, typeorm_1.Column)({
-        type: 'enum',
-        enum: UserRole,
+        type: 'varchar',
         default: UserRole.PLAYER,
     }),
     __metadata("design:type", String)
