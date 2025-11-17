@@ -64,7 +64,7 @@ __decorate([
         description: 'Venue latitude',
         example: 40.7128,
     }),
-    (0, typeorm_1.Column)({ type: 'decimal', precision: 10, scale: 8 }),
+    (0, typeorm_1.Column)({ type: 'real' }),
     __metadata("design:type", Number)
 ], Venue.prototype, "latitude", void 0);
 __decorate([
@@ -72,7 +72,7 @@ __decorate([
         description: 'Venue longitude',
         example: -74.0060,
     }),
-    (0, typeorm_1.Column)({ type: 'decimal', precision: 11, scale: 8 }),
+    (0, typeorm_1.Column)({ type: 'real' }),
     __metadata("design:type", Number)
 ], Venue.prototype, "longitude", void 0);
 __decorate([
@@ -80,7 +80,7 @@ __decorate([
         description: 'Base price per hour',
         example: 50.00,
     }),
-    (0, typeorm_1.Column)({ type: 'decimal', precision: 10, scale: 2 }),
+    (0, typeorm_1.Column)({ type: 'real' }),
     __metadata("design:type", Number)
 ], Venue.prototype, "pricePerHour", void 0);
 __decorate([
