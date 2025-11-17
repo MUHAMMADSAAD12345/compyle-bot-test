@@ -12,7 +12,7 @@ export declare class User {
     firstName: string;
     lastName: string;
     phone: string;
-    role: UserRole;
+    role: string;
     isActive: boolean;
     profileImageUrl: string;
     createdAt: Date;
