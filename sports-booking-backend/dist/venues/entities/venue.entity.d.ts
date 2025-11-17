@@ -15,6 +15,10 @@ export declare class Venue {
     amenities: string[];
     openingTime: string;
     closingTime: string;
+    slotDurationMinutes: number;
+    schedulingConfig: Record<string, any>;
+    minBookingNoticeHours: number;
+    maxBookingDurationHours: number;
     isActive: boolean;
     createdAt: Date;
     updatedAt: Date;

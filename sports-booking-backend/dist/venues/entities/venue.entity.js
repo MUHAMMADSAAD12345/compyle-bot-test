@@ -118,6 +118,48 @@ __decorate([
 ], Venue.prototype, "closingTime", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
+        description: 'Time slot duration in minutes',
+        example: 60,
+    }),
+    (0, typeorm_1.Column)({ default: 60 }),
+    __metadata("design:type", Number)
+], Venue.prototype, "slotDurationMinutes", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Advanced scheduling configuration as JSON',
+        example: {
+            "differentHoursPerDay": {
+                "monday": { "opening": "06:00", "closing": "22:00" },
+                "tuesday": { "opening": "06:00", "closing": "22:00" },
+                "weekend": { "opening": "07:00", "closing": "20:00" }
+            },
+            "breakTimes": [
+                { "start": "12:00", "end": "13:00", "reason": "lunch_break" }
+            ],
+            "maintenanceDays": ["2023-12-25", "2024-01-01"]
+        },
+    }),
+    (0, typeorm_1.Column)({ type: 'json', default: {} }),
+    __metadata("design:type", Object)
+], Venue.prototype, "schedulingConfig", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Minimum booking notice in hours',
+        example: 2,
+    }),
+    (0, typeorm_1.Column)({ default: 2 }),
+    __metadata("design:type", Number)
+], Venue.prototype, "minBookingNoticeHours", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Maximum booking duration in hours',
+        example: 4,
+    }),
+    (0, typeorm_1.Column)({ default: 4 }),
+    __metadata("design:type", Number)
+], Venue.prototype, "maxBookingDurationHours", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
         description: 'Whether venue is active for booking',
         example: true,
     }),
