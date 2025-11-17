@@ -1,0 +1,85 @@
+name: sports_booking_mobile
+description: A sports ground booking application.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # State Management
+  provider: ^6.1.1
+  flutter_riverpod: ^2.4.9
+
+  # Navigation
+  go_router: ^12.1.3
+
+  # HTTP & API
+  dio: ^5.4.0
+  retrofit: ^4.0.3
+  json_annotation: ^4.8.1
+
+  # Local Storage
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  shared_preferences: ^2.2.2
+
+  # Authentication
+  flutter_secure_storage: ^9.0.0
+  google_sign_in: ^6.2.1
+
+  # UI Components
+  cupertino_icons: ^1.0.2
+  material_design_icons_flutter: ^7.0.7296
+
+  # Maps & Location
+  google_maps_flutter: ^2.5.0
+  geolocator: ^10.1.0
+  geocoding: ^2.1.1
+
+  # Image Handling
+  cached_network_image: ^3.3.0
+  image_picker: ^1.0.4
+
+  # Utilities
+  intl: ^0.18.1
+  uuid: ^4.2.1
+  logger: ^2.0.2+1
+
+  # WebSocket
+  web_socket_channel: ^2.4.0
+
+  # Date & Time
+  date_field: ^3.0.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+  # Code Generation
+  build_runner: ^2.4.7
+  retrofit_generator: ^8.0.4
+  json_serializable: ^6.7.1
+  hive_generator: ^2.0.1
+
+flutter:
+  uses-material-design: true
+  generate: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+
+flutter_intl:
+  enabled: true
+  class_name: S
+  main_locale: en
+  arb_dir: lib/l10n
+  output_dir: lib/generated
+  output_localization_file: app_localizations.dart
