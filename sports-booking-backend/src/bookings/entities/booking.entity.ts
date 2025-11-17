@@ -61,8 +61,7 @@ export class Booking {
     example: BookingStatus.CONFIRMED,
   })
   @Column({
-    type: 'enum',
-    enum: BookingStatus,
+    type: 'varchar',
     default: BookingStatus.PENDING,
   })
   status: BookingStatus;
