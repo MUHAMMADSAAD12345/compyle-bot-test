@@ -59,7 +59,7 @@ export class TimeSlot {
     description: 'Price for this time slot',
     example: 50.00,
   })
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({ type: 'real' })
   price: number;
 
   @ApiProperty({
