@@ -9,16 +9,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.VenuesModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const venues_controller_1 = require("./venues.controller");
+const venues_service_1 = require("./venues.service");
 const venue_entity_1 = require("./entities/venue.entity");
 const time_slot_entity_1 = require("./entities/time-slot.entity");
 const venue_image_entity_1 = require("./entities/venue-image.entity");
+const user_entity_1 = require("../users/entities/user.entity");
 let VenuesModule = class VenuesModule {
 };
 exports.VenuesModule = VenuesModule;
 exports.VenuesModule = VenuesModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([venue_entity_1.Venue, time_slot_entity_1.TimeSlot, venue_image_entity_1.VenueImage])],
-        exports: [typeorm_1.TypeOrmModule],
+        imports: [typeorm_1.TypeOrmModule.forFeature([venue_entity_1.Venue, time_slot_entity_1.TimeSlot, venue_image_entity_1.VenueImage, user_entity_1.User])],
+        controllers: [venues_controller_1.VenuesController],
+        providers: [venues_service_1.VenuesService],
+        exports: [venues_service_1.VenuesService, typeorm_1.TypeOrmModule],
     })
 ], VenuesModule);
 //# sourceMappingURL=venues.module.js.map
