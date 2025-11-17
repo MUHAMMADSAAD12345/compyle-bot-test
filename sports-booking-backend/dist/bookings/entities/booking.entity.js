@@ -64,8 +64,7 @@ __decorate([
         example: BookingStatus.CONFIRMED,
     }),
     (0, typeorm_1.Column)({
-        type: 'enum',
-        enum: BookingStatus,
+        type: 'varchar',
         default: BookingStatus.PENDING,
     }),
     __metadata("design:type", String)
