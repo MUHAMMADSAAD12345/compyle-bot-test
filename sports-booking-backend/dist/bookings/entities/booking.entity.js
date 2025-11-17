@@ -74,7 +74,7 @@ __decorate([
         description: 'Total amount for booking',
         example: 50.00,
     }),
-    (0, typeorm_1.Column)({ name: 'total_amount', type: 'decimal', precision: 10, scale: 2 }),
+    (0, typeorm_1.Column)({ name: 'total_amount', type: 'real' }),
     __metadata("design:type", Number)
 ], Booking.prototype, "totalAmount", void 0);
 __decorate([
