@@ -62,7 +62,7 @@ __decorate([
         description: 'Price for this time slot',
         example: 50.00,
     }),
-    (0, typeorm_1.Column)({ type: 'decimal', precision: 10, scale: 2 }),
+    (0, typeorm_1.Column)({ type: 'real' }),
     __metadata("design:type", Number)
 ], TimeSlot.prototype, "price", void 0);
 __decorate([
