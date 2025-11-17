@@ -64,7 +64,7 @@ export class Booking {
     type: 'varchar',
     default: BookingStatus.PENDING,
   })
-  status: BookingStatus;
+  status: string;
 
   @ApiProperty({
     description: 'Total amount for booking',
