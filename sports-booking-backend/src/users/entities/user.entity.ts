@@ -73,7 +73,7 @@ export class User {
     type: 'varchar',
     default: UserRole.PLAYER,
   })
-  role: UserRole;
+  role: string;
 
   @ApiProperty({
     description: 'Whether user account is active',
