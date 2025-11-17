@@ -12,7 +12,7 @@ export declare class Booking {
     playerId: string;
     venueId: string;
     timeSlotId: string;
-    status: BookingStatus;
+    status: string;
     totalAmount: number;
     currency: string;
     bookingTime: Date;
