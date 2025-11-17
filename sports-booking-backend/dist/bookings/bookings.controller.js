@@ -38,10 +38,6 @@ let BookingsController = class BookingsController {
     }
     async findVenueBookings(venueId, query, req) {
         const userId = req.user.userId;
-        const user = await this['usersRepository']?.findOne({ where: { id: userId } });
-        if (!user || (user.role !== user_entity_1.UserRole.ADMIN && user.role !== user_entity_1.UserRole.OWNER)) {
-            throw new ForbiddenException('Access denied');
-        }
         return this.bookingsService.findVenueBookings(venueId, query);
     }
     async findOne(id, req) {
