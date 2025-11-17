@@ -70,8 +70,7 @@ export class User {
     example: UserRole.PLAYER,
   })
   @Column({
-    type: 'enum',
-    enum: UserRole,
+    type: 'varchar',
     default: UserRole.PLAYER,
   })
   role: UserRole;
