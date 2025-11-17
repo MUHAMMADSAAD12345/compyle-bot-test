@@ -26,6 +26,8 @@ export declare class VenuesService {
     getVenueTimeSlots(venueId: string, dateFrom?: Date, dateTo?: Date): Promise<TimeSlot[]>;
     getVenuesByOwner(ownerId: string): Promise<Venue[]>;
     private generateTimeSlots;
+    private getDayOperatingHours;
+    private isSlotInBreakTime;
     uploadVenueImage(venueId: string, imageUrl: string, caption?: string, displayOrder?: number): Promise<VenueImage>;
     deleteVenueImage(imageId: string, userId: string): Promise<void>;
 }

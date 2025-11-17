@@ -159,31 +159,91 @@ let VenuesService = class VenuesService {
         const startDate = new Date();
         const endDate = new Date();
         endDate.setDate(startDate.getDate() + 30);
-        const [openingHour, openingMinute] = venue.openingTime.split(':').map(Number);
-        const [closingHour, closingMinute] = venue.closingTime.split(':').map(Number);
-        const openingMinutes = openingHour * 60 + openingMinute;
-        const closingMinutes = closingHour * 60 + closingMinute;
-        const slotDurationMinutes = 60;
+        const slotDurationMinutes = venue.slotDurationMinutes || 60;
         for (let date = new Date(startDate); date <= endDate; date.setDate(date.getDate() + 1)) {
             const slotDate = new Date(date);
+            const dateString = slotDate.toISOString().split('T')[0];
+            const maintenanceDays = venue.schedulingConfig?.maintenanceDays || [];
+            if (maintenanceDays.includes(dateString)) {
+                continue;
+            }
+            const { openingMinutes, closingMinutes } = this.getDayOperatingHours(venue, slotDate);
+            const breakTimes = venue.schedulingConfig?.breakTimes || [];
             for (let time = openingMinutes; time + slotDurationMinutes <= closingMinutes; time += slotDurationMinutes) {
-                const startHour = Math.floor(time / 60);
-                const startMinute = time % 60;
-                const endHour = Math.floor((time + slotDurationMinutes) / 60);
-                const endMinute = (time + slotDurationMinutes) % 60;
+                const startTimeMinutes = time;
+                const endTimeMinutes = time + slotDurationMinutes;
+                const isBreakTime = this.isSlotInBreakTime(startTimeMinutes, endTimeMinutes, breakTimes);
+                if (isBreakTime) {
+                    continue;
+                }
+                const startHour = Math.floor(startTimeMinutes / 60);
+                const startMinute = startTimeMinutes % 60;
+                const endHour = Math.floor(endTimeMinutes / 60);
+                const endMinute = endTimeMinutes % 60;
                 const startTime = `${startHour.toString().padStart(2, '0')}:${startMinute.toString().padStart(2, '0')}`;
                 const endTime = `${endHour.toString().padStart(2, '0')}:${endMinute.toString().padStart(2, '0')}`;
+                const price = (venue.pricePerHour * slotDurationMinutes) / 60;
                 slots.push({
                     venueId,
                     slotDate,
                     startTime,
                     endTime,
-                    price: venue.pricePerHour,
+                    price,
                     isAvailable: true,
                 });
             }
         }
         await this.timeSlotsRepository.save(slots);
+    }
+    getDayOperatingHours(venue, date) {
+        const dayOfWeek = date.getDay();
+        const dayConfig = venue.schedulingConfig?.differentHoursPerDay;
+        if (!dayConfig) {
+            const [openingHour, openingMinute] = venue.openingTime.split(':').map(Number);
+            const [closingHour, closingMinute] = venue.closingTime.split(':').map(Number);
+            return {
+                openingMinutes: openingHour * 60 + openingMinute,
+                closingMinutes: closingHour * 60 + closingMinute,
+            };
+        }
+        if ((dayOfWeek === 0 || dayOfWeek === 6) && dayConfig.weekend) {
+            const weekend = dayConfig.weekend;
+            const [openingHour, openingMinute] = weekend.opening.split(':').map(Number);
+            const [closingHour, closingMinute] = weekend.closing.split(':').map(Number);
+            return {
+                openingMinutes: openingHour * 60 + openingMinute,
+                closingMinutes: closingHour * 60 + closingMinute,
+            };
+        }
+        const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+        const dayName = dayNames[dayOfWeek];
+        const daySpecificConfig = dayConfig[dayName];
+        if (daySpecificConfig) {
+            const [openingHour, openingMinute] = daySpecificConfig.opening.split(':').map(Number);
+            const [closingHour, closingMinute] = daySpecificConfig.closing.split(':').map(Number);
+            return {
+                openingMinutes: openingHour * 60 + openingMinute,
+                closingMinutes: closingHour * 60 + closingMinute,
+            };
+        }
+        const [openingHour, openingMinute] = venue.openingTime.split(':').map(Number);
+        const [closingHour, closingMinute] = venue.closingTime.split(':').map(Number);
+        return {
+            openingMinutes: openingHour * 60 + openingMinute,
+            closingMinutes: closingHour * 60 + closingMinute,
+        };
+    }
+    isSlotInBreakTime(startTime, endTime, breakTimes) {
+        for (const breakTime of breakTimes) {
+            const [breakStartHour, breakStartMinute] = breakTime.start.split(':').map(Number);
+            const [breakEndHour, breakEndMinute] = breakTime.end.split(':').map(Number);
+            const breakStartMinutes = breakStartHour * 60 + breakStartMinute;
+            const breakEndMinutes = breakEndHour * 60 + breakEndMinute;
+            if (startTime < breakEndMinutes && endTime > breakStartMinutes) {
+                return true;
+            }
+        }
+        return false;
     }
     async uploadVenueImage(venueId, imageUrl, caption, displayOrder) {
         const venue = await this.findOne(venueId);
