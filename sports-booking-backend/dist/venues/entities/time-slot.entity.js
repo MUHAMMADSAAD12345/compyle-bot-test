@@ -95,7 +95,7 @@ __decorate([
     __metadata("design:type", venue_entity_1.Venue)
 ], TimeSlot.prototype, "venue", void 0);
 __decorate([
-    OneToMany(() => booking_entity_1.Booking, (booking) => booking.timeSlot),
+    (0, typeorm_1.OneToMany)(() => booking_entity_1.Booking, (booking) => booking.timeSlot),
     __metadata("design:type", Array)
 ], TimeSlot.prototype, "bookings", void 0);
 exports.TimeSlot = TimeSlot = __decorate([
